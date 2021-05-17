@@ -7,7 +7,7 @@ router.route('/').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
 router.route('/signup').post((req,res)=>{
-    const Customers=new Customer({ firstname : req.body.firstname,lastname:req.body.lastname,email:req.body.email,role:req.body.role,age:req.body.age,weight:req.body.weight,height:req.body.height,address:req.body.address,currentplan:req.body.currentplan,nextrenewdate:req.body.nextrenewdate,numberofexercises:req.body.numberofexercises,timedurationofallexercises:req.body.timedurationofallexercises,totalcaloriesburnt:req.body.totalcaloriesburnt,phonenumber:req.body.phonenumber});   
+    const Customers=new Customer({ firstname : req.body.firstname,lastname:req.body.lastname,email:req.body.email,role:req.body.role,age:req.body.age,weight:req.body.weight,height:req.body.height,address:req.body.address,currentplan:req.body.currentplan,nextrenewdate:Date(req.body.nextrenewdate),numberofexercises:req.body.numberofexercises,timedurationofallexercises:req.body.timedurationofallexercises,totalcaloriesburnt:req.body.totalcaloriesburnt,phonenumber:req.body.phonenumber});   
         Customer.register(Customers,req.body.password,function(err,customer){
             if(err)
             {
