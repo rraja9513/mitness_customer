@@ -37,7 +37,9 @@ router.route('/login').post((req,res)=>{
         else{
             passport.authenticate("customerLocal")(req,res,function(){
                 if (req.user) {
-                    var redir = { redirect: "/HomePage" };
+                    var redir = { returnCode: "Success",
+                                  returnMsg:"Login Success"
+                };
                     return res.json(redir);
               } else {
                 res.status(400).json({ message: 'Credentials Are Incorrect' });
