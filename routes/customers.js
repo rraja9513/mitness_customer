@@ -16,7 +16,8 @@ router.route('/signup').post((req,res)=>{
             else{
                 passport.authenticate("customerLocal")(req,res,function(){
                     if (req.user) {
-                        var redir = { redirect: "/ProfilePage" };
+                        var redir = { returnCode: "Success",
+                                      returnMsg:"Customer registered Successfully"};
                         return res.json(redir);
                   } else {
                     res.status(400).json({ message: 'SignupFailed' });
