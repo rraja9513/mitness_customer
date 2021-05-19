@@ -38,7 +38,7 @@ router.route('/login').post((req,res)=>{
         else{
             passport.authenticate("customerLocal")(req,res,function(){
                 if (req.user) {
-                    var redir = { returnCode: "Success",
+                    var redir = { returnCode: "Su",
                                   returnMsg:"Login Success"
                 };
                     return res.json(redir);
