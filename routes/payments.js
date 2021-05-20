@@ -5,6 +5,11 @@ router.route('/').get((req, res) => {
       .then(payments => res.json(payments))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+  router.route('/search').post((req, res) => {
+    Payment.find({paymentid : req.body.paymentid})
+      .then(payments => res.json(payments))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
   router.route('/add').post((req,res)=>{
     const paymentid = req.body.paymentid;
     const cname=req.body.cname;
