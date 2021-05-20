@@ -6,6 +6,11 @@ router.route('/').get((req, res) => {
       .then(customers => res.json(customers))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+  router.route('/search').get((req, res) => {
+    Customer.find({firstname : req.body.firstname})
+      .then(customers => res.json(customers))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
 router.route('/signup').post((req,res)=>{
     const Customers=new Customer({ firstname : req.body.firstname,lastname:req.body.lastname,email:req.body.email,role:req.body.role,age:req.body.age,weight:req.body.weight,height:req.body.height,address:req.body.address,currentplan:req.body.currentplan,nextrenewdate:Date(req.body.nextrenewdate),numberofexercises:req.body.numberofexercises,timedurationofallexercises:req.body.timedurationofallexercises,totalcaloriesburnt:req.body.totalcaloriesburnt,phonenumber:req.body.phonenumber});   
         Customer.register(Customers,req.body.password,function(err,customer){
@@ -27,28 +32,41 @@ router.route('/signup').post((req,res)=>{
         })
     });
 router.route('/login').post((req,res)=>{
-    const customer=new Customer({
-        email:req.body.email,
-        password:req.body.password
-    });
-    req.login(customer,function(err){
-        if(err){
-            console.log(err)
-        }
-        else{
-            passport.authenticate("customerLocal")(req,res,function(){
-                if (req.user) {
-                    var redir = { returnCode: "Su",
-                                  returnMsg:"Login Success",
-                                  returnid:req.user._id
-                };
-                    return res.json(redir);
-              } else {
-                res.status(400).json({ message: 'Credentials Are Incorrect' });
+   if(!req.body.email){
+    res.json({success: false, message: "email was not given"})
+  } else {
+    if(!req.body.password){
+      res.json({success: false, message: "Password was not given"})
+    }else{
+      passport.authenticate('customerLocal', function (err, user, info) { 
+         if(err){
+           res.json({success: false, message: err})
+         } else{
+          if (! user) {
+            var redir={
+                Code:"Fa",
+                Msg:"Login Failed"
+            }
+            return res.json(redir)
+          } else{
+            req.login(user, function(err){
+              if(err){
+                res.json({success: false, message: err})
               }
-            });
-        }
-    });
+              else{
+                  var redir={
+                      Code:"Su",
+                      Msg:"Login Success",
+                      id:user._id
+                  }
+                  return res.json(redir)
+              }
+            })
+          }
+         }
+      })(req, res);
+    }
+  }
  });
  router.route('/forgotpassword').post((req,res)=>{
      if(req.isAuthenticated()){
