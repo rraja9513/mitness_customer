@@ -16,8 +16,10 @@ router.route('/signup').post((req,res)=>{
         Customer.register(Customers,req.body.password,function(err,customer){
             if(err)
             {
-                console.log(err);
-            }
+              var redir = { returnCode: "Failure",
+                            returnMsg:"Customer Already Registered"};
+                            return res.json(redir);
+                          }
             else{
                 passport.authenticate("customerLocal")(req,res,function(){
                     if (req.user) {
@@ -69,19 +71,17 @@ router.route('/login').post((req,res)=>{
   }
  });
  router.route('/forgotpassword').post((req,res)=>{
-     if(req.isAuthenticated()){
         Customer.findOne({ email: req.body.email })
         .then((customer) => {
             customer.setPassword(req.body.password,(err, customer) => {
-                if (err) return next(err);
+                if (err) return next("User Not Found");
                 customer.save();
                 res.status(200).json({ message: 'Successful Password Reset' });
             });
         })
-     }
-     else{
-         res.redirect('/login');
-     }
+        .catch((err)=>{
+          res.json("Customer  Not  Found")
+        })
 });
 router.route('/changepassword').post((req,res)=>{
     if(req.isAuthenticated()){
