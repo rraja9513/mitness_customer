@@ -93,6 +93,9 @@ router.route('/changepassword').post((req,res)=>{
             res.status(200).json({ message: 'Password Change Successful' });
         });
     })
+    .catch((err)=>{
+      res.json("Customer  Not  Found")
+    })
 }
 else{
     res.redirect('/login');
