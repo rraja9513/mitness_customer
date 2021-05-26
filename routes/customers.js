@@ -112,12 +112,17 @@ router.route('/update/:id').post((req, res) => {
         customer.firstname = req.body.firstname;
         customer.lastname = req.body.lastname;
         customer.email = req.body.email;
-        customer.phonenumber =Number(req.body.phonenumber);
+        customer.phonenumber =req.body.phonenumber;
   
         customer.save()
           .then(() => res.json('User updated!'))
           .catch(err => res.status(400).json('Error: ' + err));
       })
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
+  router.route('/:id').delete((req, res) => {
+    Customer.findByIdAndDelete(req.params.id)
+      .then(() => res.json('Customer deleted.'))
       .catch(err => res.status(400).json('Error: ' + err));
   });
  module.exports=router;
