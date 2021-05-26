@@ -6,6 +6,11 @@ router.route('/').get((req, res) => {
       .then(customers => res.json(customers))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+  router.route('/:id').get((req, res) => {
+    Customer.findById(req.params.id)
+      .then(customer => res.json(customer))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
   router.route('/search').post((req, res) => {
     Customer.find({firstname : req.body.firstname})
       .then(customers => res.json(customers))
