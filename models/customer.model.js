@@ -19,7 +19,6 @@ const customerSchema=new Schema(
         },
         role:{
             type: String,
-            required: true,
         },
         profilepicture:{
             type: String,
