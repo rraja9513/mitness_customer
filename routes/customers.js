@@ -107,7 +107,6 @@ else{
 }
 });
 router.route('/update/:id').post((req, res) => {
-    if(req.isAuthenticated()){
     Customer.findById(req.params.id)
       .then(customer => {
         customer.firstname = req.body.firstname;
@@ -120,10 +119,5 @@ router.route('/update/:id').post((req, res) => {
           .catch(err => res.status(400).json('Error: ' + err));
       })
       .catch(err => res.status(400).json('Error: ' + err));
-    }
-    else
-    {
-        res.redirect('/login');
-    }
   });
  module.exports=router;
