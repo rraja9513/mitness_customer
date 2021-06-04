@@ -1,7 +1,7 @@
 const router=require('express').Router();
 const passport=require('passport');
 let Customer=require('../models/customer.model');
-router.route('/').get((req, res) => {
+router.route('/').post((req, res) => {
     Customer.find()
       .then(customers => res.json(customers))
       .catch(err => res.status(400).json('Error: ' + err));
