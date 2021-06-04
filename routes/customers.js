@@ -113,6 +113,18 @@ router.route('/update/:id').post((req, res) => {
         customer.lastname = req.body.lastname;
         customer.email = req.body.email;
         customer.phonenumber =req.body.phonenumber;
+        customer.gender=req.body.gender;
+        customer.role=req.body.role;
+        customer.age=req.body.age;
+        customer.weight=req.body.weight;
+        customer.height=req.body.height;
+        customer.address=req.body.address;
+        customer.currentplan=req.body.currentplan;
+        customer.nextrenewdate=Date(req.body.nextrenewdate);
+        customer.numberofexercises=req.body.numberofexercises;
+        customer.timedurationofallexercises=req.body.timedurationofallexercises;
+        customer.totalcaloriesburnt=req.body.totalcaloriesburnt;
+
   
         customer.save()
           .then(() => res.json('User updated!'))
