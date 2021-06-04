@@ -55,6 +55,9 @@ const customerSchema=new Schema(
         },
         phonenumber:{
             type:String,
+        },
+        gender:{
+            type:String
         }
     },
     {
