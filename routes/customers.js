@@ -139,6 +139,7 @@ router.route('/update/:id').post((req, res) => {
   });
   router.post('/delete', async (req, res) => {
     const ids = req.body.arrayids;
+    console.log("raja");
     await Customer.deleteMany( { _id : { $in: ids } } );
     res.send("Success") 
 })
