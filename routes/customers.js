@@ -140,5 +140,6 @@ router.route('/update/:id').post((req, res) => {
   router.route('/delete').post(async(req,res)=>{
     const ids=req.body.arrayids;
     await Customer.deleteMany({_id:{$in:ids}})
+    res.status(200).json({ message: 'Deleted Successfully'});
   })
  module.exports=router;
