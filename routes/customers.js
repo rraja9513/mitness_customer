@@ -139,6 +139,6 @@ router.route('/update/:id').post((req, res) => {
   });
   router.route('/delete').post((req,res)=>{
     const ids=req.body.arrayids;
-    Customer.deleteMany({id:{$in:ids}})
+    Customer.deleteMany({_id:ids})
   })
  module.exports=router;
