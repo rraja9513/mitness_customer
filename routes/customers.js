@@ -137,9 +137,8 @@ router.route('/update/:id').post((req, res) => {
       .then(() => res.json('Customer deleted.'))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-  router.route('/delete').post((req,res)=>{
+  router.route('/delete').post(async(req,res)=>{
     const ids=req.body.arrayids;
-    console.log(ids);
-    Customer.deleteMany({_id:ids});
+    await Customer.deleteMany({_id:{$in:ids}})
   })
  module.exports=router;
